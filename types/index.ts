@@ -9,3 +9,12 @@ export interface CustomButtonProps {
 export interface AnotherButtonProps {
     title: string;
 }
+
+export interface CustomFilterProps {
+    title: string;
+}
+
+export interface SearchManufacturerProps {
+    manufacturer: string;
+    setManufacturer: (manufacturer: string) => void;
+}
