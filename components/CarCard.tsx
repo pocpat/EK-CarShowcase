@@ -2,7 +2,7 @@
 import { CarProps } from "@/types";
 import React, { useState } from "react";
 import Image from "next/image";
-import { CustomButton } from "@/components";
+import { CarDetails, CustomButton } from "@/components";
 import { calculateCarRent } from "@/utils";
 
 interface CarCardProps {
@@ -78,6 +78,7 @@ const CarCard = ({ car }: CarCardProps) => {
           />
         </div>
       </div>
+      <CarDetails isOpen={isOpen} closeModal={()=>setIsOpen(false)} car={car}/> 
     </div>
   );
 };
