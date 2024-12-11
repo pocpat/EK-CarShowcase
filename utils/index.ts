@@ -6,8 +6,6 @@
 //
 // const fetch = require('node-fetch');
 
-import { FilterProps } from "@/types";
-
 // const url = 'https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?model=corolla&limit=5';
 // const options = {
 //   method: 'GET',
@@ -25,15 +23,9 @@ import { FilterProps } from "@/types";
 // 	console.error(error);
 // }
 // ===================================================================================
-import { CarProps } from "@/types";
-export async function fetchCars(filters: FilterProps = {}) {
-  const {
-    manufacturer = "",
-    year = "",
-    model = "",
-    limit = 5,
-    fuel = "",
-  } = filters;
+import { CarProps, FilterProps } from "@/types";
+export async function fetchCars(filters: FilterProps) {
+  const { manufacturer, year, model, limit, fuel } = filters;
 
   const headers = {
     "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPID_API_KEY || "",
@@ -41,7 +33,7 @@ export async function fetchCars(filters: FilterProps = {}) {
   };
   // from const url
   const response = await fetch(
-    "https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?model=corolla&limit=5",
+      `https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${manufacturer}&year=${year}&model=${model}&limit=${limit}&fuel_type=${fuel}`,
     { headers: headers }
   );
   const result = await response.json();
@@ -74,4 +66,30 @@ export const generateCarImageUrl = (car: CarProps, angle?: string) => {
   url.searchParams.append("angle", `${angle}`);
 
   return `${url}`;
+};
+
+export const updateSearchParams = (type: string, value: string) => {
+  // Get the current URL search params
+  const searchParams = new URLSearchParams(window.location.search);
+
+  // Set the specified search parameter to the given value
+  searchParams.set(type, value);
+
+  // Set the specified search parameter to the given value
+  const newPathname = `${window.location.pathname}?${searchParams.toString()}`;
+
+  return newPathname;
+};
+
+export const deleteSearchParams = (type: string) => {
+  // Set the specified search parameter to the given value
+  const newSearchParams = new URLSearchParams(window.location.search);
+
+  // Delete the specified search parameter
+  newSearchParams.delete(type.toLocaleLowerCase());
+
+  // Construct the updated URL pathname with the deleted search parameter
+  const newPathname = `${window.location.pathname}?${newSearchParams.toString()}`;
+
+  return newPathname;
 };

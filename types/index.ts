@@ -39,5 +39,20 @@ export interface FilterProps {
     model?: string;
     limit?: number;
     fuel?: string;
+
+
 }
 
+export interface HomeProps {
+    searchParams: FilterProps;
+  }
+
+  export interface OptionProps {
+    value: string;
+    title: string;
+}
+
+export interface CustomFilterProps {
+    title: string;
+    options: OptionProps[];
+}

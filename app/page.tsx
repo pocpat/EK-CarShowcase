@@ -1,10 +1,21 @@
 import { Hero, SearchBar , CustomFilter, CarCard} from "@/components";
+import { fuels, yearsOfProduction } from "@/constants";
+import { FilterProps, HomeProps } from "@/types";
 import { fetchCars } from "@/utils";
 import Image from "next/image";
+import ShowMore from "@/components/ShowMore";
 
 
-export default async function Home() {
-  const allCars = await fetchCars();
+export default async function Home({searchParams}:HomeProps) {
+  const allCars = await fetchCars({
+    manufacturer: searchParams.manufacturer || "",
+    model: searchParams.model || "",
+    fuel: searchParams.fuel || "",
+    year: searchParams.year || 2022,
+    limit: searchParams.limit || 10,
+  
+  
+  });
   console.log(allCars);
   const isDataEmpty = !Array.isArray(allCars) || allCars.length <1 || !allCars ;
   return (
@@ -18,8 +29,8 @@ export default async function Home() {
         <div className="home__filters">
           <SearchBar/>  
           <div className="home__filter-container">
-            <CustomFilter title='fuel'/>
-            <CustomFilter title='year'/>
+            <CustomFilter title='fuel' options={fuels}/>
+            <CustomFilter title='year' options ={yearsOfProduction}/>
 
           </div>
         </div>
@@ -28,9 +39,13 @@ export default async function Home() {
     WE HAVE CARS
 <div className="home__cars-wrapper">
 {allCars?.map((car) => (
-  <CarCard  car={car}/> 
+  <CarCard key={car.id} car={car}/> 
   ) )}
 </div>
+
+<ShowMore/> 
+
+
   </section>
 ):(
 <div className="home__error-container">
@@ -40,6 +55,7 @@ export default async function Home() {
 </div>
 
 )}
+
       </div>
     </main>
   );
