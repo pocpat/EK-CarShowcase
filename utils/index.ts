@@ -23,6 +23,7 @@
 // 	console.error(error);
 // }
 // ===================================================================================
+// ===================================================================================
 import { CarProps, FilterProps } from "@/types";
 export async function fetchCars(filters: FilterProps): Promise<CarProps[]> {  const { manufacturer, year, model, limit, fuel } = filters;
 
