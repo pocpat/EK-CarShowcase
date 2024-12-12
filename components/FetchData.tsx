@@ -35,7 +35,7 @@ export default async function Page({ searchParams }: PageProps) {
         {!Array.isArray(allCars) || allCars.length < 1 ? (
           <div className="home__error-container">
             <h2 className="text-black text-xl font-bold">Oops, no results</h2>
-            <p>{!Array.isArray(allCars) && allCars.message}</p>
+            <p>{!Array.isArray(allCars) && (allCars as { message: string }).message}</p>
           </div>
         ) : (
           <section>

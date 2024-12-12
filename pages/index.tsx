@@ -41,7 +41,7 @@ export default function Home({ searchParams, allCars }: PageProps) {
           <h1 className="text-4xl font-extrabold">Car Catalogue</h1>
           <p>Explore the cars you might like</p>
         </div>
-        <div className="home__filters">
+        <div className="home__filters" id="search-bar">
           <SearchBar />
           <div className="home__filter-container">
             <CustomFilter title="fuel" options={fuels} />

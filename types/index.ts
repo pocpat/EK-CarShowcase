@@ -63,6 +63,7 @@ export interface ShowMoreProps {
     isNext: boolean;
 }
 
+
 export interface PageProps {
     searchParams: {
       manufacturer?: string;
@@ -71,6 +72,7 @@ export interface PageProps {
       year?: string;
       limit?: string;
     };
+    allCars: CarProps[] | { message: string };
   }
 
 

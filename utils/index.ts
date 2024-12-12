@@ -24,8 +24,7 @@
 // }
 // ===================================================================================
 import { CarProps, FilterProps } from "@/types";
-export async function fetchCars(filters: FilterProps) {
-  const { manufacturer, year, model, limit, fuel } = filters;
+export async function fetchCars(filters: FilterProps): Promise<CarProps[]> {  const { manufacturer, year, model, limit, fuel } = filters;
 
   const headers = {
     "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPID_API_KEY || "",
@@ -37,7 +36,7 @@ export async function fetchCars(filters: FilterProps) {
     { headers: headers }
   );
   const result = await response.json();
-  console.log("API result:", result);
+  //console.log("API result:", result);
   return result;
 }
 
