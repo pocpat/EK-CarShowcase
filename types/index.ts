@@ -31,6 +31,7 @@ export interface CarProps {
     model: string;
     transmission: string;
     year: number;
+    id: number;
        
     };
 export interface FilterProps {
@@ -60,4 +61,26 @@ export interface CustomFilterProps {
 export interface ShowMoreProps {
     pageNumber: number;
     isNext: boolean;
+}
+
+export interface PageProps {
+    searchParams: {
+      manufacturer?: string;
+      model?: string;
+      fuel?: string;
+      year?: string;
+      limit?: string;
+    };
+  }
+
+
+
+export interface CustomButtonProps {
+  title: string;
+  containerStyles?: string;
+  handleClick: MouseEventHandler<HTMLButtonElement>;
+  btnType?: "button" | "submit";
+  textStyles?: string;
+  rightIcon?: string;
+  isDisabled?: boolean;
 }
