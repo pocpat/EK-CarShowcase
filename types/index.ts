@@ -8,7 +8,8 @@ export interface CustomFilterProps {
 export interface CustomButtonProps {
     title: string;
     containerStyles?: string;
-    handleClick: MouseEventHandler<HTMLButtonElement>;
+    //handleClick: MouseEventHandler<HTMLButtonElement>;
+    handleClick: () => void;
     btnType?: "button" | "submit" ;
     textStyles?: string;
     rightIcon?: string;
@@ -77,12 +78,3 @@ export interface PageProps {
 
 
 
-export interface CustomButtonProps {
-  title: string;
-  containerStyles?: string;
-  handleClick: MouseEventHandler<HTMLButtonElement>;
-  btnType?: "button" | "submit";
-  textStyles?: string;
-  rightIcon?: string;
-  isDisabled?: boolean;
-}

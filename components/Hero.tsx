@@ -13,13 +13,13 @@ const Hero = () => {
 
   return (
     <div className="hero">
+    
       <div className="flex-1 pt-36 padding-x">
         <h1 className="hero__title">
-          Find, book, or rent a car -- quickly and easily!
+        Next Stop: Car Discovery Practice App!
         </h1>
         <p className="hero__subtitle">
-          Streamline your car rental experience with our effortless booking
-          process.
+        Explore cars while mastering APIs with style. Search by make, model, fuel type, or year to find the perfect match.
         </p>
         <CustomButton
           title="Explore Cars"

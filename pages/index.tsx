@@ -1,10 +1,11 @@
 import { GetServerSideProps } from 'next';
-import { Hero, SearchBar, CustomFilter, CarCard } from "@/components";
+import { Hero, SearchBar, CustomFilter, CarCard, Navbar, Footer } from "@/components/index";
 import { fuels, yearsOfProduction } from "@/constants";
 import { fetchCars } from "@/utils";
 import ShowMore from "@/components/ShowMore";
 import { FilterProps, CarProps } from "@/types";
 import '../app/globals.css';
+
 
 interface PageProps {
   searchParams: Record<string, string | undefined>;
@@ -35,6 +36,7 @@ export default function Home({ searchParams, allCars }: PageProps) {
 
   return (
     <main className="overflow-hidden">
+      <Navbar/>
       <Hero />
       <div className="mt-12 padding-x padding-y max-width" id="discover">
         <div className="home__text-container">
@@ -64,6 +66,7 @@ export default function Home({ searchParams, allCars }: PageProps) {
           </div>
         )}
       </div>
+      <Footer />
     </main>
   );
 }
