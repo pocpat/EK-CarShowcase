@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
   title: "Car Hub",
@@ -15,16 +13,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* <head>
+      <head>
         <link rel="icon" href="/ekLogo.png" />
         <title>Car Hub</title>
-      </head> */}
+      </head>
 
       <body className="relative">
-      <div>Testing Layout</div>
-   
+        <div>Testing Layout</div>
+
         {children}
-    
       </body>
     </html>
   );

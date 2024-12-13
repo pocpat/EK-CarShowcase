@@ -10,7 +10,6 @@ interface CarCardProps {
 }
 const CarCard = ({ car }: CarCardProps) => {
   const { city_mpg, year, make, model, transmission, drive } = car;
-  // console.log("Car object passed to CarCard:", car);
 
   const [isOpen, setIsOpen] = useState(false);
   const carRent = calculateCarRent(city_mpg, year);
@@ -63,8 +62,7 @@ const CarCard = ({ car }: CarCardProps) => {
 
           <div className="flex flex-col justify-center items-center gap-2   ">
             <Image src="/gas.svg" alt="gas" width={20} height={20} />
-            <p className="text-[14px]">
-              {city_mpg} MPG</p>
+            <p className="text-[14px]">{city_mpg} MPG</p>
           </div>
         </div>
 
@@ -78,7 +76,11 @@ const CarCard = ({ car }: CarCardProps) => {
           />
         </div>
       </div>
-      <CarDetails isOpen={isOpen} closeModal={()=>setIsOpen(false)} car={car}/> 
+      <CarDetails
+        isOpen={isOpen}
+        closeModal={() => setIsOpen(false)}
+        car={car}
+      />
     </div>
   );
 };
