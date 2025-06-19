@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
 
     // Construct a detailed prompt for the AI image generator
     const fuelType = fuel === 'gas' ? 'gasoline' : fuel || 'modern';
-    const prompt = `A realistic high-quality photo of a ${year} ${make} ${model} ${fuelType} car on a scenic road, professional automotive photography, cinematic lighting, detailed exterior, modern setting, 4K quality`;
+    const prompt = `A realistic high-quality photo of a ${year} ${make} ${model} ${fuelType} car on a scenic road, professional automotive photography, cinematic lighting, detailed exterior, modern setting`;
 
     const imageRouterResponse = await fetch('https://imagerouter.io/api/v1/generate', {
       method: 'POST',
