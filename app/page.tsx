@@ -21,7 +21,7 @@ export default async function Home({ searchParams }: PageProps) {
   const year = parseInt(searchParams.year || "2022", 10);
   //const limit = parseInt(searchParams.limit || "10", 10);
 
-  const allCars = await fetchCars({ manufacturer, model, fuel, year, limit });
+  const allCars = await fetchCars({ manufacturer, model, fuel, year });
   const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1;
 
   return (
