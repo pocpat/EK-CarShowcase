@@ -34,7 +34,7 @@ const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
           setSideImageUrls(sideUrls);
         } catch (error) {
           console.error('Failed to load car detail images:', error);
-          const fallbackUrl = `https://via.placeholder.com/400x240/2B59FF/FFFFFF?text=${car.make}+${car.model}`;
+          const fallbackUrl = '/car-ph.jpg';
           setMainImageUrl(fallbackUrl);
           setSideImageUrls([fallbackUrl, fallbackUrl, fallbackUrl]);
         } finally {

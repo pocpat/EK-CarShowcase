@@ -51,8 +51,8 @@ export const generateCarImageUrl = async (car: CarProps, angle?: string): Promis
     return data.imageUrl;
   } catch (error) {
     console.error('Error generating car image:', error);
-    // Fallback to a placeholder image
-    return `https://via.placeholder.com/400x240/2B59FF/FFFFFF?text=${car.make}+${car.model}`;
+    // Fallback to the new car placeholder image
+    return '/car-ph.jpg';
   }
 };
 

@@ -25,7 +25,7 @@ const CarCard = ({ car }: CarCardProps) => {
         setImageUrl(url);
       } catch (error) {
         console.error('Failed to load car image:', error);
-        setImageUrl(`https://via.placeholder.com/400x240/2B59FF/FFFFFF?text=${make}+${model}`);
+        setImageUrl('/car-ph.jpg');
       } finally {
         setIsLoadingImage(false);
       }
