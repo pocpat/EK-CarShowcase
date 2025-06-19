@@ -3,7 +3,6 @@ import Image from "next/image";
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { CarProps } from "@/types";
-import { relative } from "path";
 import { generateCarImageUrl } from "@/utils";
 
 interface CarDetailsProps {

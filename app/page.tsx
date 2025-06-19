@@ -1,64 +1,31 @@
-import { GetServerSideProps } from "next";
-import {
-  Hero,
-  SearchBar,
-  CustomFilter,
-  CarCard,
-  Navbar,
-  Footer,
-} from "@/components/index";
+import { Hero, SearchBar, CustomFilter, CarCard, Footer } from "@/components";
 import { fuels, yearsOfProduction } from "@/constants";
 import { fetchCars } from "@/utils";
 import ShowMore from "@/components/ShowMore";
 import { CarProps } from "@/types";
-import "../app/globals.css";
 
 interface PageProps {
-  searchParams: Record<string, string | undefined>;
-  allCars: CarProps[];
+  searchParams: {
+    manufacturer?: string;
+    model?: string;
+    fuel?: string;
+    year?: string;
+    limit?: string;
+  };
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const searchParams = context.query;
-
-  const manufacturer = Array.isArray(searchParams.manufacturer)
-    ? searchParams.manufacturer[0]
-    : searchParams.manufacturer || "";
-  const model = Array.isArray(searchParams.model)
-    ? searchParams.model[0]
-    : searchParams.model || "";
-  const fuel = Array.isArray(searchParams.fuel)
-    ? searchParams.fuel[0]
-    : searchParams.fuel || "";
-  const year = parseInt(
-    Array.isArray(searchParams.year)
-      ? searchParams.year[0]
-      : searchParams.year || "2022",
-    10
-  );
-  const limit = parseInt(
-    Array.isArray(searchParams.limit)
-      ? searchParams.limit[0]
-      : searchParams.limit || "10",
-    10
-  );
+export default async function Home({ searchParams }: PageProps) {
+  const manufacturer = searchParams.manufacturer || "";
+  const model = searchParams.model || "";
+  const fuel = searchParams.fuel || "";
+  const year = parseInt(searchParams.year || "2022", 10);
+  const limit = parseInt(searchParams.limit || "10", 10);
 
   const allCars = await fetchCars({ manufacturer, model, fuel, year, limit });
-
-  return {
-    props: {
-      searchParams,
-      allCars,
-    },
-  };
-};
-
-export default function Home({ searchParams, allCars }: PageProps) {
   const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1;
 
   return (
     <main className="overflow-hidden">
-      <Navbar />
       <Hero />
       <div className="mt-12 padding-x padding-y max-width" id="discover">
         <div className="home__text-container">
@@ -80,8 +47,8 @@ export default function Home({ searchParams, allCars }: PageProps) {
               ))}
             </div>
             <ShowMore
-              pageNumber={parseInt(searchParams.limit || "10") / 10}
-              isNext={parseInt(searchParams.limit || "10") > allCars.length}
+              pageNumber={limit / 10}
+              isNext={limit > allCars.length}
             />
           </section>
         ) : (
@@ -94,7 +61,6 @@ export default function Home({ searchParams, allCars }: PageProps) {
           </div>
         )}
       </div>
-      <Footer />
     </main>
   );
 }
