@@ -10,7 +10,7 @@ interface PageProps {
     model?: string;
     fuel?: string;
     year?: string;
-    limit?: string;
+    //limit?: string;
   };
 }
 
