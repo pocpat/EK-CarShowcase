@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
         'Authorization': `Bearer ${process.env.IMAGEROUTER_API_KEY}`,
       },
       body: JSON.stringify({
-        model: 'google/gemini-2.0-flash-exp:free',
+        model: 'stabilityai/sdxl-turbo:free',
         prompt: prompt,
         width: 512,
         height: 320,
