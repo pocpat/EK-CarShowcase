@@ -1,6 +1,6 @@
 "use client";
 import { CarProps } from "@/types";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { CarDetails, CustomButton } from "@/components";
 import { calculateCarRent, generateCarImageUrl } from "@/utils";
@@ -8,11 +8,32 @@ import { calculateCarRent, generateCarImageUrl } from "@/utils";
 interface CarCardProps {
   car: CarProps;
 }
+
 const CarCard = ({ car }: CarCardProps) => {
   const { city_mpg, year, make, model, transmission, drive } = car;
-
   const [isOpen, setIsOpen] = useState(false);
+  const [imageUrl, setImageUrl] = useState<string>("");
+  const [isLoadingImage, setIsLoadingImage] = useState(true);
+  
   const carRent = calculateCarRent(city_mpg, year);
+
+  useEffect(() => {
+    const loadImage = async () => {
+      setIsLoadingImage(true);
+      try {
+        const url = await generateCarImageUrl(car);
+        setImageUrl(url);
+      } catch (error) {
+        console.error('Failed to load car image:', error);
+        setImageUrl(`https://via.placeholder.com/400x240/2B59FF/FFFFFF?text=${make}+${model}`);
+      } finally {
+        setIsLoadingImage(false);
+      }
+    };
+
+    loadImage();
+  }, [car, make, model]);
+
   return (
     <div className="car-card group">
       <div className="car-card__content">
@@ -26,17 +47,23 @@ const CarCard = ({ car }: CarCardProps) => {
         <span className="self-end text-[14px] font-medium">/day</span>
       </p>
       <div className="relative w-full h-40 my-3 object-contain">
-        <Image
-          src={generateCarImageUrl(car)}
-          alt="car model"
-          fill
-          priority
-          className="object-contain"
-        />
+        {isLoadingImage ? (
+          <div className="w-full h-full bg-gray-200 animate-pulse rounded-lg flex items-center justify-center">
+            <span className="text-gray-500">Generating image...</span>
+          </div>
+        ) : (
+          <Image
+            src={imageUrl}
+            alt={`${make} ${model}`}
+            fill
+            priority
+            className="object-contain rounded-lg"
+          />
+        )}
       </div>
       <div className="relative flex w-full mt-2">
         <div className="flex group-hover:invisible w-full justify-between text-gray">
-          <div className="flex flex-col justify-center items-center gap-2   ">
+          <div className="flex flex-col justify-center items-center gap-2">
             <Image
               src="/steering-wheel.svg"
               alt="steering wheel"
@@ -49,7 +76,7 @@ const CarCard = ({ car }: CarCardProps) => {
             </p>
           </div>
 
-          <div className="flex flex-col justify-center items-center gap-2   ">
+          <div className="flex flex-col justify-center items-center gap-2">
             <Image
               src="/tire.svg"
               alt="tire"
@@ -60,7 +87,7 @@ const CarCard = ({ car }: CarCardProps) => {
             <p>{drive.toUpperCase()}</p>
           </div>
 
-          <div className="flex flex-col justify-center items-center gap-2   ">
+          <div className="flex flex-col justify-center items-center gap-2">
             <Image src="/gas.svg" alt="gas" width={20} height={20} />
             <p className="text-[14px]">{city_mpg} MPG</p>
           </div>
@@ -69,7 +96,7 @@ const CarCard = ({ car }: CarCardProps) => {
         <div className="car-card__btn-container">
           <CustomButton
             title="View More"
-            containerStyles="w-full py-[16] rounded-full bg-primary-blue "
+            containerStyles="w-full py-[16] rounded-full bg-primary-blue"
             textStyles="text-white text-[14px] leading-[17px] font-bold"
             rightIcon="/right-arrow.svg"
             handleClick={() => setIsOpen(true)}
